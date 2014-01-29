@@ -2,4 +2,5 @@ Billaume (BLL)
 ===========
 
 Scrypt coin
-Coming soon
+
+More info at : http://www.billaume.com/coin
