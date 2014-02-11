@@ -833,7 +833,7 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
     return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 8 * 60 * 60; // Billaume: every 8 hours
+static const int64 nTargetTimespan = 01 * 60; // Billaume: every  minutes
 static const int64 nTargetSpacing = 60; // Billaume: 1 minute blocks
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
