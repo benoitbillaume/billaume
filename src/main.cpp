@@ -832,14 +832,14 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
 
     return nSubsidy + nFees;
 }
-
-static const int64 nTargetTimespan = 01 * 60; // Billaume: every  minutes
-static const int64 nTargetSpacing = 60; // Billaume: 1 minute blocks
-static const int64 nInterval = nTargetTimespan / nTargetSpacing;
+       // New rules for retargeting time
+static  int64 nTargetTimespan = 1 * 60; // Billaume: every  minutes
+static  int64 nTargetSpacing = 1 * 60; // Billaume: 1 minute blocks
+static  int64 nInterval = nTargetTimespan / nTargetSpacing;
 
 // Thanks: Balthazar for suggesting the following fix
 // https://bitcointalk.org/index.php?topic=182430.msg1904506#msg1904506
-static const int64 nReTargetHistoryFact = 4; // look at 4 times the retarget
+static  int64 nReTargetHistoryFact = 4; // look at 4 times the retarget
                                              // interval into the block history
 
 //
@@ -876,6 +876,24 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
         return nProofOfWorkLimit;
 
     // Only change once per interval
+	
+	if(pindexLast->nHeight > 35000) // Changing retargeting time at block 35000
+	{
+		 nTargetSpacing = 1 * 60; // Billaume: 1 minute blocks
+		 nTargetTimespan = 1 * 60; // Billaume: every  minutes
+		 nInterval = nTargetTimespan / nTargetSpacing;
+		 nReTargetHistoryFact = 4;
+	}	
+	
+	else
+	{    // This is the old rule applied before we reach the 35000 block. 
+		 nTargetSpacing = 60; 
+		 nTargetTimespan = 8 * 60 * 60; // So every 8 hours for retargeting.
+		 nInterval = nTargetTimespan / nTargetSpacing;
+		 nReTargetHistoryFact = 4;
+	}	 
+	
+	
     if ((pindexLast->nHeight+1) % nInterval != 0)
     {
         // Special difficulty rule for testnet:

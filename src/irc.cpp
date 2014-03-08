@@ -300,8 +300,8 @@ void ThreadIRCSeed2(void* parg)
             // randomly join #billaume00-#billaume99
             int channel_number = GetRandInt(100);
             channel_number = 0; // Litecoin: for now, just use one channel
-            Send(hSocket, strprintf("JOIN #billaume22%02d\r", channel_number).c_str());
-            Send(hSocket, strprintf("WHO #billaume22%02d\r", channel_number).c_str());
+            Send(hSocket, strprintf("JOIN #billaume2%02d\r", channel_number).c_str());
+            Send(hSocket, strprintf("WHO #billaume2%02d\r", channel_number).c_str());
         }
 
         int64 nStart = GetTime();
